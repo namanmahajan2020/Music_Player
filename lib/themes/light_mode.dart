@@ -1,9 +1,32 @@
 import 'package:flutter/material.dart';
-ThemeData lightMode=ThemeData(
-  colorScheme: ColorScheme.light(
-    background: Colors.grey.shade300,
+ThemeData lightMode = ThemeData(
+  colorScheme: ColorScheme(
+    brightness: Brightness.light,
     primary: Colors.grey.shade500,
+    onPrimary: Colors.white,
     secondary: Colors.grey.shade200,
+    onSecondary: Colors.black,
+    background: Colors.grey.shade300,
+    onBackground: Colors.black,
+    surface: Colors.white,
+    onSurface: Colors.black,
+    error: Colors.red,
+    onError: Colors.white,
     inversePrimary: Colors.grey.shade900,
-  )
+    surfaceVariant: Colors.grey.shade100,
+    onSurfaceVariant: Colors.grey.shade800,
+    outline: Colors.grey.shade400,
+    shadow: Colors.black,
+    inverseSurface: Colors.grey.shade800,
+    onInverseSurface: Colors.white,
+    tertiary: Colors.grey.shade600,
+    onTertiary: Colors.white,
+    primaryContainer: Colors.grey.shade400,
+    onPrimaryContainer: Colors.black,
+    secondaryContainer: Colors.grey.shade100,
+    onSecondaryContainer: Colors.black,
+    tertiaryContainer: Colors.grey.shade300,
+    onTertiaryContainer: Colors.black,
+    scrim: Colors.black,
+  ),
 );

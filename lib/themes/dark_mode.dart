@@ -1,9 +1,32 @@
 import 'package:flutter/material.dart';
-ThemeData darkMode=ThemeData(
-  colorScheme: ColorScheme.light(
+ThemeData darkMode = ThemeData(
+  colorScheme: ColorScheme(
+    brightness: Brightness.dark,
+    primary: Colors.grey.shade300,
+    onPrimary: Colors.black,
+    secondary: Colors.grey.shade400,
+    onSecondary: Colors.black,
     background: Colors.grey.shade900,
-    primary: Colors.grey.shade600,
-    secondary: Colors.grey.shade800,
-    inversePrimary: Colors.grey.shade300,
-  )
+    onBackground: Colors.white,
+    surface: Colors.grey.shade800,
+    onSurface: Colors.white,
+    error: Colors.red.shade400,
+    onError: Colors.black,
+    inversePrimary: Colors.grey.shade200,
+    surfaceVariant: Colors.grey.shade700,
+    onSurfaceVariant: Colors.grey.shade200,
+    outline: Colors.grey.shade500,
+    shadow: Colors.black,
+    inverseSurface: Colors.grey.shade200,
+    onInverseSurface: Colors.black,
+    tertiary: Colors.grey.shade500,
+    onTertiary: Colors.black,
+    primaryContainer: Colors.grey.shade600,
+    onPrimaryContainer: Colors.white,
+    secondaryContainer: Colors.grey.shade700,
+    onSecondaryContainer: Colors.white,
+    tertiaryContainer: Colors.grey.shade600,
+    onTertiaryContainer: Colors.white,
+    scrim: Colors.black,
+  ),
 );
