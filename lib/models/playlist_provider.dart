@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:music_player/models/song.dart';
 
@@ -28,6 +29,51 @@ class PlaylistProvider extends ChangeNotifier {
       audioPath: "assets/audio/Born_To_Shine.mp3",
     ),
   ];
+
+  final AudioPlayer _audioPlayer = AudioPlayer();
+  Duration _currentDuration = Duration.zero;
+  Duration _totalDuration = Duration.zero;
+
+  bool _isPlaying = false;
+
+  void play() async {
+    final String path = _playlist[_currentSongIndex!].audioPath;
+    await _audioPlayer.stop();
+    await _audioPlayer.play(AssetSource(path));
+    _isPlaying=true;
+    notifyListeners();
+  }
+
+  void pause() async{
+    await _audioPlayer.stop();
+    _isPlaying=false;
+    notifyListeners();
+  }
+
+  void resume()async{
+    await _audioPlayer.resume();
+    _isPlaying=true;
+    notifyListeners();
+  }
+
+
+  PlaylistProvider() {
+    ListenToDuration();
+  }
+
+  void ListenToDuration() {
+    _audioPlayer.onDurationChanged.listen((newDuration) {
+      _totalDuration = newDuration;
+      notifyListeners();
+    });
+
+    _audioPlayer.onPositionChanged.listen((newPosition) {
+      _currentDuration = newPosition;
+      notifyListeners();
+    });
+
+    _audioPlayer.onPlayerComplete.listen((event) {});
+  }
 
   int? _currentSongIndex;
 
