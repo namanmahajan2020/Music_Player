@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class NeuBox extends StatelessWidget {
-  final Widget? ChilD;
-  const NeuBox({super.key, required this.ChilD});
+  final Widget? child;
+  const NeuBox({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class NeuBox extends StatelessWidget {
         ],
       ),
       padding: EdgeInsets.all(12),
-      child: ChilD,
+      child: child,
     );
   }
 }
