@@ -11,7 +11,7 @@ class SongPage extends StatelessWidget {
     return Consumer<PlaylistProvider>(
       builder: (context, value, child) {
         final playlist = value.playlist;
-        final currentSong = playlist[value.currentSongIndex??0];
+        final currentSong = playlist[value.currentSongIndex ?? 0];
         return Scaffold(
           backgroundColor: Theme.of(context).colorScheme.background,
           body: SafeArea(
@@ -72,7 +72,7 @@ class SongPage extends StatelessWidget {
                         child: const Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text("0:00"),
+                            // Text(value.currentDuration.toString()),
                             Icon(Icons.shuffle),
                             Icon(Icons.repeat),
                             Text("0:00"),
@@ -87,10 +87,13 @@ class SongPage extends StatelessWidget {
                         ),
                         child: Slider(
                           min: 0,
-                          max: 100,
-                          value: 50,
+                          max: value.totalDuration.inSeconds.toDouble(),
+                          value: value.currentDuration.inSeconds.toDouble(),
                           activeColor: Colors.green,
                           onChanged: (value) {},
+                          onChangeEnd: (double double) {
+                            value.seek(Duration(seconds: double.toInt()));
+                          },
                         ),
                       ),
                     ],
@@ -100,22 +103,30 @@ class SongPage extends StatelessWidget {
                     children: [
                       Expanded(
                         child: GestureDetector(
-                          onTap: () {},
+                          onTap: value.playPreviousSong,
                           child: NeuBox(ChilD: Icon(Icons.skip_previous)),
                         ),
                       ),
+
                       SizedBox(width: 20),
+
                       Expanded(
                         flex: 2,
                         child: GestureDetector(
-                          onTap: () {},
-                          child: NeuBox(ChilD: Icon(Icons.play_arrow)),
+                          onTap: value.pauseOrResume,
+                          child: NeuBox(
+                            ChilD: Icon(
+                              value.isPlaying ? Icons.pause : Icons.play_arrow,
+                            ),
+                          ),
                         ),
                       ),
+
                       SizedBox(width: 20),
+
                       Expanded(
                         child: GestureDetector(
-                          onTap: () {},
+                          onTap: value.playNextSong,
                           child: NeuBox(ChilD: Icon(Icons.skip_next)),
                         ),
                       ),

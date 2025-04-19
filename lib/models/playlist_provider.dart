@@ -8,27 +8,28 @@ class PlaylistProvider extends ChangeNotifier {
       songName: "Acid Rap",
       artistName: "Neyo",
       albumArtImagePath: "lib/assets/images/pic1.jpg",
-      audioPath: "assets/audio/Born_To_Shine.mp3",
+      audioPath: "lib/assets/audio/audio1.mp3",
     ),
     Song(
       songName: "Paradise",
       artistName: "Rafe",
       albumArtImagePath: "lib/assets/images/pic2.webp",
-      audioPath: "assets/audio/Born_To_Shine.mp3",
+      audioPath: "lib/assets/audio/audio2.mp3",
     ),
     Song(
       songName: "So Sick",
       artistName: "Diljit Dosanjh",
       albumArtImagePath: "lib/assets/images/pic3.jpg",
-      audioPath: "assets/audio/Born_To_Shine.mp3",
+      audioPath: "lib/assets/audio/audio3.mp3",
     ),
     Song(
       songName: "Pheonix",
       artistName: "Frankie",
       albumArtImagePath: "lib/assets/images/pic4.avif",
-      audioPath: "assets/audio/Born_To_Shine.mp3",
+      audioPath: "lib/assets/audio/audio4.mp3",
     ),
   ];
+  int? _currentSongIndex;
 
   final AudioPlayer _audioPlayer = AudioPlayer();
   Duration _currentDuration = Duration.zero;
@@ -40,22 +41,56 @@ class PlaylistProvider extends ChangeNotifier {
     final String path = _playlist[_currentSongIndex!].audioPath;
     await _audioPlayer.stop();
     await _audioPlayer.play(AssetSource(path));
-    _isPlaying=true;
+    _isPlaying = true;
     notifyListeners();
   }
 
-  void pause() async{
+  void pause() async {
     await _audioPlayer.stop();
-    _isPlaying=false;
+    _isPlaying = false;
     notifyListeners();
   }
 
-  void resume()async{
+  void resume() async {
     await _audioPlayer.resume();
-    _isPlaying=true;
+    _isPlaying = true;
     notifyListeners();
   }
 
+  void pauseOrResume() async {
+    if (_isPlaying) {
+      pause();
+    } else {
+      resume();
+    }
+    notifyListeners();
+  }
+
+  void seek(Duration position) async {
+    await _audioPlayer.seek(position);
+  }
+
+  void playNextSong() {
+    if (_currentSongIndex != null) {
+      if (_currentSongIndex! < _playlist.length - 1) {
+        currentSongIndex = _currentSongIndex! + 1;
+      } else {
+        currentSongIndex = 0;
+      }
+    }
+  }
+
+  void playPreviousSong() async {
+    if (_currentDuration.inSeconds > 3) {
+      play();
+    } else {
+      if (_currentSongIndex! > 0) {
+        currentSongIndex = _currentSongIndex! - 1;
+      } else {
+        currentSongIndex = _playlist.length - 1;
+      }
+    }
+  }
 
   PlaylistProvider() {
     ListenToDuration();
@@ -72,15 +107,25 @@ class PlaylistProvider extends ChangeNotifier {
       notifyListeners();
     });
 
-    _audioPlayer.onPlayerComplete.listen((event) {});
+    _audioPlayer.onPlayerComplete.listen((event) {
+      playNextSong();
+    });
   }
 
-  int? _currentSongIndex;
+  
 
   List<Song> get playlist => _playlist;
   int? get currentSongIndex => _currentSongIndex;
+  bool get isPlaying => _isPlaying;
+  Duration get currentDuration => _currentDuration;
+  Duration get totalDuration => _totalDuration;
+
   set currentSongIndex(int? newIndex) {
     _currentSongIndex = newIndex;
+
+    if (newIndex != null) {
+      play();
+    }
     notifyListeners();
   }
 }

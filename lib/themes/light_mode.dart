@@ -3,7 +3,7 @@ ThemeData lightMode = ThemeData(
   colorScheme: ColorScheme(
     brightness: Brightness.light,
     primary: Colors.grey.shade500,
-    onPrimary: Colors.white,
+    onPrimary:Colors.grey.shade500,
     secondary: Colors.grey.shade200,
     onSecondary: Colors.black,
     background: Colors.grey.shade300,
@@ -21,7 +21,7 @@ ThemeData lightMode = ThemeData(
     onInverseSurface: Colors.white,
     tertiary: Colors.grey.shade600,
     onTertiary: Colors.white,
-    primaryContainer: Colors.grey.shade400,
+    primaryContainer: Colors.grey.shade500,
     onPrimaryContainer: Colors.black,
     secondaryContainer: Colors.grey.shade100,
     onSecondaryContainer: Colors.black,
